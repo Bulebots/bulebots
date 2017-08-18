@@ -10,8 +10,7 @@ HC-05 Bluetooth
 Module
 ======
 
-We are using an HC-05 bluetooth module for communicating with the external
-world in real-time.
+The HC-05 is a cheap and relatively small serial bluetooth device.
 
 In both HC-05 and HC-06 modules, the hardware is exactly the same, the only
 difference is the firmware. There are notable differences between both
@@ -19,8 +18,8 @@ firmwares as the HC-05 is more efficient, more configurable and has a much more
 extended AT command set.
 
 The serial baudrate (hardware dependent) can be configured from 4800 to
-3686400, allowing a pretty decend communication speed (very convenient as we
-will be using it for real-time communication with the robot).
+3686400, allowing a pretty decend communication speed (very convenient for
+real-time communication with the robot).
 
 Among all the available pins, the HC-05 firmware uses the following pins in a
 minimum system:
@@ -47,26 +46,25 @@ minimum system:
 
 .. warning:: It is important to mention that the UART_RXD line has no pull-up
    resistor, and it should be added if the microcontroller TXD does not have
-   pull-up function (which is not our case).
+   pull-up function.
+
+With the HC-05 not only you are able to properly configure the module as master
+or slave, set the passkey or list nearby devices or recently connected devices,
+but also, this firmware allows you to configure output pins: PIO2-PIO7 and
+PIO10 (i.e.: to drive some LEDs or to set signals that do not need to switch
+state fast).
 
 The PCM pins could be used for echo cancellation if we were using this module
-for audio transmission. The SPI and USB pins can be used to change the firmware
-of the device. The firmware is not free software (neither the application to
-upload new firmware), and are both property of CSR. That is why we are not
-using those pins, as we do not really want to change HC-05 firmware, which is
-the best firmware for this device freele available. Buying CSR tools would
-allow us to make use of other pins (as AIOx), even allowing us to modify the
-firmware to make use of the ADCs already available in the bluetooth device, but
-this would be interesting only if we did not mind using propietary and
-expensive software for applications in which the bluetooth device would work as
-a standalone device, reading sensors, controlling signals and communicating
-with other devices. As we have already mencioned, this is not our case.
+for audio transmission.
 
-.. note:: With the HC-05 not only you are able to properly configure the module
-   as master or slave, set the passkey or list nearby devices or recently
-   connected devices, but also, this firmware allows you to configure output
-   pins: PIO2-PIO7 and PIO10 (i.e.: to drive some LEDs or to set signals that
-   do not need to switch state fast).
+The SPI and USB pins can be used to change the firmware of the device. The
+firmware is not free software (neither the application to upload new firmware),
+and are both property of CSR. Buying CSR tools would allow us to use other pins
+and even allow us to modify the firmware to make use of the ADCs already
+available in the bluetooth device. But this would be interesting only if we did
+not mind using propietary software for applications in which the bluetooth
+device would work as a standalone device (i.e.: reading sensors, controlling
+signals, communicating with other devices...).
 
 Module current consumption (real tested parameters, as the datasheet for this
 device is quite inaccurate):
@@ -83,7 +81,7 @@ device is quite inaccurate):
 AT mode
 =======
 
-To enter AT mode we can simply:
+To enter AT mode simply:
 
 #. Reset the device (input low level to pin 11 for at least 5 ms). Or power off
    the device.
@@ -91,8 +89,8 @@ To enter AT mode we can simply:
 #. Input high level to pin 11 again (or high impedance). Or power on the
    device.
 
-This way the module enters AT-mode with a well-known USART configuration, which
-is very convenient:
+This way the module enters AT-mode with a well-known serial configuration,
+which is very convenient:
 
 - 38400 baud rate.
 - 8-bits data.
@@ -110,29 +108,38 @@ communication, this is not a problem. Note that we can do this even if the
 device is paired with another device.
 
 
+.. index:: mounted
+
+PCB-mounted devices
+===================
+
+Many times the HC-05 comes already mounted on a PCB in a very reduced working
+system, just enough to use the serial communication. Note that:
+
+- Although many of these mounted devices are compatible with 5 V logic levels,
+  they do work just fine with 3.3 V.
+- Some may have a small switch connected to pin 34. This is very convenient, as
+  we can very easily enter AT-mode this way (just press the switch while you
+  power on the device).
+
+
 .. index:: configuration
 
 Configuration
 =============
 
-For our initial prototype we are using an HC-05 bluetooth module mounted on a
-PCB with very few pins available (just enough for serial communication, which
-is what we really need) and with a small switch to start in AT-mode, which is
-very convenient.
+Once you are in AT-mode, you should see the LED blinking less frequently,
+indicating you have successfully entered this mode.
 
-In order to enter the AT-command mode we can siply press the switch while we
-power the device. In this case we can see the LED blinking less frequently,
-indicating we have successfully entered AT-command mode.
-
-Once we are in AT-command mode, and supposing we are connected to the
-bluetooth with a serial interface at ``/dev/ttyUSB0``, we need to set the
-appropriate serial configuration:
+Now, supposing you are connected to the bluetooth with a serial interface at
+``/dev/ttyUSB0`` in your computer, first you need to set the appropriate serial
+configuration:
 
 .. code:: bash
 
    stty -F /dev/ttyUSB0 38400 cs8 -cstopb -parenb
 
-Then we can open a terminal to display the received data:
+Then you can open a terminal to display the received data:
 
 .. code:: bash
 
@@ -161,7 +168,7 @@ Connection
 ==========
 
 Checking the connection is easy. If you have a smartphone, you can install
-`Bluetooth terminal`_ and connect to the device. Then, supposing we are still
+`Bluetooth terminal`_ and connect to the device. Then, supposing you are still
 using a serial interface at ``/dev/ttyUSB0`` with a baud rate of 921600, no
 parity, 1 stop bit and 8 bits data:
 
