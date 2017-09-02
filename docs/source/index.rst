@@ -15,6 +15,7 @@ Athena is a documentation project for robot builders.
 
    hc05_bluetooth.rst
    ie2-1024_encoder_family.rst
+   tetra.rst
 
 
 Indices and tables
