@@ -33,7 +33,7 @@ def show_locomotion(motor_diameter, wheel_diameter, motor_shift, pcb_thick,
     ax.add_artist(pinion)
 
     # PCB
-    height = motor_height - motor_diameter / 2 - pcb_thick
+    height = motor_height - motor_diameter / 2. - pcb_thick
     width = motor_diameter + 2 * wheel_diameter
     pcb = Rectangle(
         (-width/2., height),
@@ -83,7 +83,7 @@ def show_locomotion(motor_diameter, wheel_diameter, motor_shift, pcb_thick,
     # Change plot limits to fit everything
     x_limit = pinion_reference_diameter + wheel_diameter
     y_limit = max(wheel_diameter,
-                  motor_height + motor_diameter / 2)
+                  motor_height + motor_diameter / 2.)
     ax.set_xlim((-x_limit, x_limit))
     ax.set_ylim((0, y_limit))
 
