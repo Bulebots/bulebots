@@ -137,7 +137,7 @@ configuration:
 
 .. code:: bash
 
-   stty -F /dev/ttyUSB0 38400 cs8 -cstopb -parenb
+   stty -F /dev/ttyUSB0 38400 cs8 -cstopb -parenb -echo
 
 Then you can open a terminal to display the received data:
 
@@ -174,7 +174,7 @@ parity, 1 stop bit and 8 bits data:
 
 .. code:: bash
 
-   stty -F /dev/ttyUSB0 921600 cs8 -cstopb -parenb
+   stty -F /dev/ttyUSB0 921600 cs8 -cstopb -parenb -echo
    echo -e "Hello world!" > /dev/ttyUSB0
 
 If everything went well you should see a ``Hello world!`` message displayed on
