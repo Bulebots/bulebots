@@ -1,8 +1,9 @@
 .. index:: hc-05, bluetooth
+.. _hc-05:
 
-***************
-HC-05 Bluetooth
-***************
+**********************
+HC-05 Bluetooth module
+**********************
 
 
 .. index:: module
