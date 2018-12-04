@@ -1,14 +1,14 @@
-******************
-Athena - |version|
-******************
+********
+Bulebots
+********
 
 
 .. index:: abstract
 
-What is Athena?
----------------
+What is Bulebots?
+-----------------
 
-Athena is a documentation project for robot builders.
+Bulebots is a documentation project for robot builders.
 
 .. toctree::
    :maxdepth: 2
