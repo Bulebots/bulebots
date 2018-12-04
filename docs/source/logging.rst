@@ -70,11 +70,11 @@ re-flash their firmware using proprietary tools/software.
 Fast-sending data
 =================
 
-In order to be able to log data in real-time (maybe each millisecond), using
+In order to be able to log data in real-time (perhaps each millisecond), using
 DMA is mandatory to avoid intervention from the CPU while data is being
 transmitted. Once configured, it works like magic. Using the :ref:`HC-05`
 module with UART communication at ~1 Mbps with DMA we will be able to comfortly
-log 50-70 bytes per second.
+log 50-70 bytes per millisecond.
 
 Serialization is another important factor. The easiest way is to simply send a
 CSV-formatted string. This also eases the process of splitting and processing
@@ -124,8 +124,8 @@ I want more!
 
 If you really need to log a lot of variables, you might be able to:
 
-- Sacrifize that 1-millisecond frequency (sending twice as much variables in 2
-  milliseconds instead)
+- Sacrifize that 1-millisecond frequency (sending, for example, twice as much
+  variables in 2 milliseconds instead)
 - Increase the communication speed of your peripheral (the :ref:`HC-05` already
   allows up to >3 Mbps)
 - Use a more efficient serialization protocol
