@@ -132,35 +132,20 @@ Configuration
 Once you are in AT-mode, you should see the LED blinking less frequently,
 indicating you have successfully entered this mode.
 
-Now, supposing you are connected to the bluetooth with a serial interface at
-``/dev/ttyUSB0`` in your computer, first you need to set the appropriate serial
-configuration:
+You can configure the module using the `hcconfig`_ tool.
+
+Supposing you are connected to the bluetooth with a serial interface at
+``/dev/ttyUSB0``, you can run `hcconfig`_ with::
+
+   hcconfig /dev/ttyUSB0
+
+Then we can easily configure the module. A typical, very basic configuration
+to set the name an baudrate would look like this:
 
 .. code:: bash
 
-   stty -F /dev/ttyUSB0 38400 cs8 -cstopb -parenb -echo
-
-Then you can open a terminal to display the received data:
-
-.. code:: bash
-
-   cat /dev/ttyUSB0
-
-And send a simple command to test the connection:
-
-.. code:: bash
-
-   echo -en "at+version?\r\n" > /dev/ttyUSB0
-
-Which should result in the version being displayed in the first terminal.
-
-A typical, very basic configuration could look like this:
-
-.. code:: bash
-
-   echo -en "at+name=Theseus\r\n" > /dev/ttyUSB0
-   echo -en "at+uart=921600,0,0\r\n" > /dev/ttyUSB0
-   echo -en "at+role=0\r\n" > /dev/ttyUSB0
+   (hcconfig) name Mynewname
+   (hcconfig) baudrate 921600
 
 
 .. index:: connection
@@ -192,3 +177,5 @@ References
 
 .. _`Bluetooth terminal`:
   https://github.com/Sash0k/bluetooth-spp-terminal
+.. _`hcconfig`:
+  https://github.com/Bulebots/hcconfig
