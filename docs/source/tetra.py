@@ -1,3 +1,4 @@
+from functools import partial
 from math import asin
 from math import cos
 
@@ -7,8 +8,9 @@ from matplotlib.pyplot import Rectangle
 
 
 def show_locomotion(motor_diameter, wheel_diameter, motor_shift, pcb_thick,
-                    module, pinion_z, gear_z):
+                    module, pinion_z, gear_z, shaft_diameter):
     pinion_reference_diameter = module * pinion_z
+    pinion_external_diameter = module * (pinion_z + 2)
     gear_reference_diameter = module * gear_z
     gear_external_diameter = module * (gear_z + 2)
 
@@ -20,17 +22,23 @@ def show_locomotion(motor_diameter, wheel_diameter, motor_shift, pcb_thick,
     motor = Circle(
         (0, motor_height),
         radius=motor_diameter/2.,
-        color='black',
+        color='brown',
         linewidth=0,
+    )
+    shaft = Circle(
+        (0, motor_height),
+        radius=shaft_diameter/2.,
+        color='blue',
+        linewidth=0,
+        alpha=0.8,
     )
     pinion = Circle(
         (0, motor_height),
-        radius=pinion_reference_diameter/2.,
+        radius=pinion_external_diameter/2.,
         color='yellow',
         linewidth=0,
+        alpha=0.8,
     )
-    ax.add_artist(motor)
-    ax.add_artist(pinion)
 
     # PCB
     height = motor_height - motor_diameter / 2. - pcb_thick
@@ -42,43 +50,33 @@ def show_locomotion(motor_diameter, wheel_diameter, motor_shift, pcb_thick,
         color='green',
         linewidth=0,
     )
-    ax.add_artist(pcb)
 
     # Gears and wheels
     wheel_shift = (pinion_reference_diameter + gear_reference_diameter) / 2.
     alpha = asin(motor_shift / wheel_shift)
     wheel_shift = wheel_shift * cos(alpha)
     height = wheel_diameter / 2.
-    gear0 = Circle(
-        (-wheel_shift, height),
-        radius=gear_reference_diameter/2.,
-        color='gray',
+    gear = partial(Circle,
+        radius=gear_external_diameter/2.,
+        color='white',
         linewidth=0,
+        alpha=0.8,
     )
-    gear1 = Circle(
-        (wheel_shift, height),
-        radius=gear_reference_diameter/2.,
-        color='gray',
-        linewidth=0,
-    )
-    wheel0 = Circle(
-        (-wheel_shift, height),
+    wheel = partial(Circle,
         radius=wheel_diameter/2.,
-        color='blue',
+        color='black',
         linewidth=0,
-        alpha=0.5
+        alpha=0.7,
     )
-    wheel1 = Circle(
-        (wheel_shift, height),
-        radius=wheel_diameter/2.,
-        color='blue',
-        linewidth=0,
-        alpha=0.5
-    )
-    ax.add_artist(gear0)
-    ax.add_artist(gear1)
-    ax.add_artist(wheel0)
-    ax.add_artist(wheel1)
+
+    ax.add_artist(motor)
+    ax.add_artist(pcb)
+    ax.add_artist(pinion)
+    ax.add_artist(wheel((-wheel_shift, height)))
+    ax.add_artist(wheel((wheel_shift, height)))
+    ax.add_artist(gear((-wheel_shift, height)))
+    ax.add_artist(gear((wheel_shift, height)))
+    ax.add_artist(shaft)
 
     # Change plot limits to fit everything
     x_limit = pinion_reference_diameter + wheel_diameter

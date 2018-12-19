@@ -68,6 +68,7 @@ problem:
    config = {
        'module': 0.3,
        'motor_diameter': 15,
+       'shaft_diameter': 1.5,
        'pinion_z': 15,
        'motor_shift': 0,
        'wheel_diameter': 24,
@@ -89,6 +90,7 @@ we can always shift the motor a bit up:
    config = {
        'module': 0.3,
        'motor_diameter': 15,
+       'shaft_diameter': 1.5,
        'pinion_z': 15,
        'motor_shift': 1.5,
        'wheel_diameter': 21,
