@@ -1,0 +1,16 @@
+language: python
+
+python:
+   - 3.6
+
+install:
+ - pip install -r requirements.txt
+
+script:
+ - doc8 docs/source/
+ - make -C docs html SPHINXOPTS="-W -E"
+ - make -C docs linkcheck
+ - bash <(curl -s https://raw.githubusercontent.com/Peque/mrchecks/master/no_fixups)
+
+notifications:
+ email: false
