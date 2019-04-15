@@ -51,4 +51,4 @@ References
 .. target-notes::
 
 .. _`IE2-1024`:
-  https://fmcc.faulhaber.com/resources/img/EN_IE2-1024_DFF.PDF
+   https://www.faulhaber.com/fileadmin/Import/Media/EN_IE2-1024_DFF.pdf
