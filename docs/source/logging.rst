@@ -91,8 +91,8 @@ Logging more variables
 ======================
 
 Even if the throughput is limited, we can always sacrifize frequency for size.
-Just before writing into the DMA buffer with the new data, we should check whether
-the old data has been fully transmitted or not:
+Just before writing into the DMA buffer with the new data, we should check
+whether the old data has been fully transmitted or not:
 
 - If it has not, we do nothing (wait for the next period)
 - If it has, we can write the new data and let the DMA start sending it

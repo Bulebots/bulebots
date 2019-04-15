@@ -78,7 +78,8 @@ Note the number of pillars is exactly the same number as the maximum number of
 walls required, although this number is always fixed, no matter the maze
 configuration.
 
-We also need to take into account the space required for the base to make sure it fits somewhere at home!
+We also need to take into account the space required for the base to make sure
+it fits somewhere at home!
 
 .. math::
 
